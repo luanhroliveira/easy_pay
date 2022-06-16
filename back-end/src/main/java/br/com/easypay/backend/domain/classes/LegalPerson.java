@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @AllArgsConstructor
-public class LegalPerson extends Person {
+public final class LegalPerson extends Person {
     private String cnpj;
     private PhysicalPerson physicalPerson;
 
