@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Getter
@@ -16,9 +18,13 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Entity
 @JsonTypeName(value = "physicalPerson")
+@DiscriminatorValue(value = "PHYSICAL_PERSON")
 public final class PhysicalPersonEntity extends PersonEntity {
 
+    @Column(name = "CPF", length = 14, unique = true)
     private String cpf;
+
+    @Column(name = "RG", length = 11, unique = true)
     private String rg;
 
     public PhysicalPersonEntity(PhysicalPerson physicalPerson) {

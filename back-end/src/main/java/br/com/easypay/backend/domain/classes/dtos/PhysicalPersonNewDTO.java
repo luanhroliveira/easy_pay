@@ -13,22 +13,19 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhysicalPersonDTO extends PersonDTO {
+public class PhysicalPersonNewDTO extends PersonNewDTO {
 
-    @NotEmpty(message = MANDATORY_FILLING)
+    @NotEmpty(message = PersonNewDTO.MANDATORY_FILLING)
     @CPF(message = "CPF inválido")
     private String cpf;
 
-    @NotEmpty(message = MANDATORY_FILLING)
+    @NotEmpty(message = PersonNewDTO.MANDATORY_FILLING)
     private String rg;
 
-    public PhysicalPersonDTO(PhysicalPerson physicalPerson) {
+    public PhysicalPersonNewDTO(PhysicalPerson physicalPerson) {
         super(
-            physicalPerson.getId(),
             physicalPerson.getName(),
-            physicalPerson.getEmail(),
-            physicalPerson.getActive(),
-            physicalPerson.getPersonType()
+            physicalPerson.getEmail()
         );
         this.setCpf(physicalPerson.getCpf());
         this.setRg(physicalPerson.getRg());

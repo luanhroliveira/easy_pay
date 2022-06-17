@@ -5,6 +5,8 @@ import br.com.easypay.backend.domain.doors.repositories.PhysicalPersonRepository
 import br.com.easypay.backend.infrastructure.adapters.entities.PhysicalPersonEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class PhysicalPersonRepository implements PhysicalPersonRepositoryPort {
 
@@ -15,8 +17,9 @@ public class PhysicalPersonRepository implements PhysicalPersonRepositoryPort {
     }
 
     @Override
-    public void save(PhysicalPerson physicalPerson) {
-        PhysicalPersonEntity physicalPersonEntity = new PhysicalPersonEntity(physicalPerson);
-        physicalPersonJpaRepository.save(physicalPersonEntity);
+    public Optional<PhysicalPerson> save(PhysicalPerson physicalPerson) {
+        Optional<PhysicalPersonEntity> physicalPersonEntity =
+            Optional.of(physicalPersonJpaRepository.save(new PhysicalPersonEntity(physicalPerson)));
+        return physicalPersonEntity.map(PhysicalPerson::new);
     }
 }

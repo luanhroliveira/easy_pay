@@ -1,6 +1,7 @@
 package br.com.easypay.backend.domain.classes;
 
-import br.com.easypay.backend.domain.classes.dtos.PhysicalPersonDTO;
+import br.com.easypay.backend.domain.classes.dtos.PhysicalPersonNewDTO;
+import br.com.easypay.backend.infrastructure.adapters.entities.PhysicalPersonEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,15 +17,27 @@ public final class PhysicalPerson extends Person {
     private String cpf;
     private String rg;
 
-    public PhysicalPerson(PhysicalPersonDTO physicalPersonDTO) {
+    public PhysicalPerson(PhysicalPersonNewDTO physicalPersonDTO) {
         super(
-            physicalPersonDTO.getId(),
+            null,
             physicalPersonDTO.getName(),
             physicalPersonDTO.getEmail(),
-            physicalPersonDTO.getActive(),
-            physicalPersonDTO.getPersonType()
+            0,
+            null
         );
         this.setCpf(physicalPersonDTO.getCpf());
         this.setRg(physicalPersonDTO.getRg());
+    }
+
+    public PhysicalPerson(PhysicalPersonEntity physicalPersonEntity) {
+        super(
+            physicalPersonEntity.getId(),
+            physicalPersonEntity.getName(),
+            physicalPersonEntity.getEmail(),
+            physicalPersonEntity.getActive(),
+            physicalPersonEntity.getPersonType()
+        );
+        this.setCpf(physicalPersonEntity.getCpf());
+        this.setRg(physicalPersonEntity.getRg());
     }
 }

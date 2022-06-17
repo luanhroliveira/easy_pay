@@ -2,8 +2,10 @@ package br.com.easypay.backend.domain.doors.repositories;
 
 import br.com.easypay.backend.domain.classes.PhysicalPerson;
 
+import java.util.Optional;
+
 public interface PhysicalPersonRepositoryPort {
 
-    void save(PhysicalPerson physicalPerson);
+    Optional<PhysicalPerson> save(PhysicalPerson physicalPerson);
 
 }

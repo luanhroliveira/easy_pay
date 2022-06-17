@@ -10,19 +10,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LegalPersonDTO extends PersonDTO {
-    private String cnpj;
-    private PhysicalPersonDTO physicalPersonDTO;
+public class LegalPersonNewDTO extends PersonNewDTO {
 
-    public LegalPersonDTO(LegalPerson legalPerson) {
+    private String cnpj;
+    private PhysicalPersonNewDTO physicalPersonDTO;
+
+    public LegalPersonNewDTO(LegalPerson legalPerson) {
         super(
-            legalPerson.getId(),
             legalPerson.getName(),
-            legalPerson.getEmail(),
-            legalPerson.getActive(),
-            legalPerson.getPersonType()
+            legalPerson.getEmail()
         );
         this.setCnpj(legalPerson.getCnpj());
-        this.setPhysicalPersonDTO(new PhysicalPersonDTO(legalPerson.getPhysicalPerson()));
+        this.setPhysicalPersonDTO(new PhysicalPersonNewDTO(legalPerson.getPhysicalPerson()));
     }
 }

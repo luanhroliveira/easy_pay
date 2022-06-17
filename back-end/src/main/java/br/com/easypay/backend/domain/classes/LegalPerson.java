@@ -1,6 +1,6 @@
 package br.com.easypay.backend.domain.classes;
 
-import br.com.easypay.backend.domain.classes.dtos.LegalPersonDTO;
+import br.com.easypay.backend.domain.classes.dtos.LegalPersonNewDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,13 +15,13 @@ public final class LegalPerson extends Person {
     private String cnpj;
     private PhysicalPerson physicalPerson;
 
-    public LegalPerson(LegalPersonDTO legalPersonDTO) {
+    public LegalPerson(LegalPersonNewDTO legalPersonDTO) {
         super(
-            legalPersonDTO.getId(),
+            null,
             legalPersonDTO.getName(),
             legalPersonDTO.getEmail(),
-            legalPersonDTO.getActive(),
-            legalPersonDTO.getPersonType()
+            0,
+            null
         );
         this.setCnpj(legalPersonDTO.getCnpj());
         this.setPhysicalPerson(new PhysicalPerson(legalPersonDTO.getPhysicalPersonDTO()));
