@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public abstract class PersonDTO implements Serializable {
 
-    final static String MANDATORY_FILLING = "Preenchimento obrigatório";
+    static final String MANDATORY_FILLING = "Preenchimento obrigatório";
 
     @NotEmpty(message = MANDATORY_FILLING)
     protected Long id;

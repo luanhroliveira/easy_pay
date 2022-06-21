@@ -27,7 +27,7 @@ class PhysicalPersonRepositoryTest {
     private PhysicalPersonRepository physicalPersonRepository;
 
     @Test
-    public void should_save_a_new_physical_person() {
+    void should_save_a_new_physical_person() {
         PhysicalPerson physicalPerson = this.getPhysicalPerson();
 
         PhysicalPersonEntity physicalPersonEntity = new PhysicalPersonEntity(physicalPerson);

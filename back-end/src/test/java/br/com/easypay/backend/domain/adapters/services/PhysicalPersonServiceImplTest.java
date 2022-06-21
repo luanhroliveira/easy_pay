@@ -15,8 +15,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +32,7 @@ class PhysicalPersonServiceImplTest {
     private PhysicalPersonServiceImpl physicalPersonService;
 
     @Test
-    public void should_save_a_physical_person() {
+    void should_save_a_physical_person() {
         PhysicalPerson physicalPerson = this.getPhysicalPerson();
 
         when(this.physicalPersonRepositoryPort.save(any())).thenReturn(Optional.of(physicalPerson));
@@ -47,16 +49,20 @@ class PhysicalPersonServiceImplTest {
     }
 
     @Test
-    public void should_return_a_data_integrity_violation_exception_when_there_is_some_data_integrity() {
+    void should_return_a_data_integrity_violation_exception_when_there_is_some_data_integrity() {
+        DataIntegrityViolationException thrown = null;
+
         when(this.physicalPersonRepositoryPort.save(any())).thenThrow(
             DataIntegrityViolationException.class
         );
 
-        DataIntegrityViolationException thrown =
-            assertThrows(DataIntegrityViolationException.class,
-                () -> this.physicalPersonService.insertAPhysicalPerson(new PhysicalPersonNewDTO(this.getPhysicalPerson()))
-            );
+        try {
+            this.physicalPersonService.insertAPhysicalPerson(new PhysicalPersonNewDTO(this.getPhysicalPerson()));
+        } catch (DataIntegrityViolationException e) {
+            thrown = e;
+        }
 
+        assertNotNull(thrown);
         assertEquals(DataIntegrityViolationException.class, thrown.getClass());
         assertEquals("Não foi possível salvar devido a uma falha com o banco de dados." +
             " Se o erro persistir, por favor contate o suporte!", thrown.getMessage());

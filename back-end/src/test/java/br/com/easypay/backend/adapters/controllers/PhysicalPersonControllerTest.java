@@ -27,7 +27,7 @@ class PhysicalPersonControllerTest {
     private PhysicalPersonController physicalPersonController;
 
     @Test
-    public void should_save_a_new_physical_person() {
+    void should_save_a_new_physical_person() {
         PhysicalPersonDTO physicalPersonDTO = new PhysicalPersonDTO(this.getPhysicalPerson());
         PhysicalPersonNewDTO physicalPersonNewDTO = new PhysicalPersonNewDTO(this.getPhysicalPerson());
 

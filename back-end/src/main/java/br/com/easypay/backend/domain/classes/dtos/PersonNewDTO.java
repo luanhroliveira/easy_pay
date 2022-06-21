@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public abstract class PersonNewDTO implements Serializable {
 
-    final static String MANDATORY_FILLING = "Preenchimento obrigatório";
+    static final String MANDATORY_FILLING = "Preenchimento obrigatório";
 
     @NotEmpty(message = MANDATORY_FILLING)
     @Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
