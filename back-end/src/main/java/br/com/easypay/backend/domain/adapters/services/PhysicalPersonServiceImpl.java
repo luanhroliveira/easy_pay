@@ -25,8 +25,9 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonServicePort {
                 this.physicalPersonRepositoryPort.save(new PhysicalPerson(physicalPersonNewDTO));
 
             return physicalPerson.map(PhysicalPersonDTO::new).orElse(null);
-        } catch (DataIntegrityException e) {
-            throw new DataIntegrityException(e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não foi possível salvar devido a uma falha com o banco de dados." +
+                " Se o erro persistir, por favor contate o suporte!");
         }
     }
 
