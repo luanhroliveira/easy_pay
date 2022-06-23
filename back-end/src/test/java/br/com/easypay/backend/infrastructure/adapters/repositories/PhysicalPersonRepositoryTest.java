@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PhysicalPersonRepositoryTest {
 
+    private static final Long PHYSICAL_PERSONAL_ID = 1L;
+
     @Mock
     private PhysicalPersonJpaRepository physicalPersonJpaRepository;
 
@@ -49,9 +51,15 @@ class PhysicalPersonRepositoryTest {
         assertEquals(physicalPerson.getRg(), result.get().getRg());
     }
 
+    @Test
+    void should_delete_a_physical_person() {
+        this.physicalPersonRepository.deleteById(PHYSICAL_PERSONAL_ID);
+        verify(this.physicalPersonJpaRepository).deleteById(PHYSICAL_PERSONAL_ID);
+    }
+
     private PhysicalPerson getPhysicalPerson() {
         return new PhysicalPerson(
-            1L,
+            PHYSICAL_PERSONAL_ID,
             "Test unit",
             "test@unit.com",
             0,
