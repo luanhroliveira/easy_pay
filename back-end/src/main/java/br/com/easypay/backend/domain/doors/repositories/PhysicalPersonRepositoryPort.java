@@ -8,4 +8,5 @@ public interface PhysicalPersonRepositoryPort {
 
     Optional<PhysicalPerson> save(PhysicalPerson physicalPerson);
 
+    void deleteById(Long physicalPersonId);
 }

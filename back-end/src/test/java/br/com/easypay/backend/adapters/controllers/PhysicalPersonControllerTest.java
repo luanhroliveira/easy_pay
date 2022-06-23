@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PhysicalPersonControllerTest {
 
+    private static final Long PHYSICAL_PERSON_ID = 1L;
+
     @Mock
     private PhysicalPersonServicePort physicalPersonServicePort;
 
@@ -41,9 +43,16 @@ class PhysicalPersonControllerTest {
         verify(this.physicalPersonServicePort).insertAPhysicalPerson(physicalPersonNewDTO);
     }
 
+    @Test
+    void should_delete_a_physical_person() {
+        this.physicalPersonController.deletePhysicalPerson(PHYSICAL_PERSON_ID);
+
+        verify(this.physicalPersonServicePort).deleteAPhysicalPerson(PHYSICAL_PERSON_ID);
+    }
+
     private PhysicalPerson getPhysicalPerson() {
         return new PhysicalPerson(
-            1L,
+            PHYSICAL_PERSON_ID,
             "Test unit",
             "test@unit.com",
             0,
