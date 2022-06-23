@@ -7,4 +7,5 @@ public interface PhysicalPersonServicePort {
 
     PhysicalPersonDTO insertAPhysicalPerson(PhysicalPersonNewDTO physicalPersonDTO);
 
+    void deleteAPhysicalPerson(Long physicalPersonId);
 }

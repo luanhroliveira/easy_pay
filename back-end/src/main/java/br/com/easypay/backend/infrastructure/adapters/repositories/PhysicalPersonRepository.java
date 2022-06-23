@@ -22,4 +22,9 @@ public class PhysicalPersonRepository implements PhysicalPersonRepositoryPort {
             Optional.of(physicalPersonJpaRepository.save(new PhysicalPersonEntity(physicalPerson)));
         return physicalPersonEntity.map(PhysicalPerson::new);
     }
+
+    @Override
+    public void deleteById(Long physicalPersonId) {
+        this.physicalPersonJpaRepository.deleteById(physicalPersonId);
+    }
 }
