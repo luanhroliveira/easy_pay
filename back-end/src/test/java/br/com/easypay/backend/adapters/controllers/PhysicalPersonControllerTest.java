@@ -10,10 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,6 +52,21 @@ class PhysicalPersonControllerTest {
         this.physicalPersonController.deletePhysicalPerson(PHYSICAL_PERSON_ID);
 
         verify(this.physicalPersonServicePort).deleteAPhysicalPerson(PHYSICAL_PERSON_ID);
+    }
+
+    @Test
+    void should_return_a_physical_person() {
+        PhysicalPersonDTO physicalPersonDTO = new PhysicalPersonDTO(this.getPhysicalPerson());
+
+        when(this.physicalPersonServicePort.findPhysicalPersonById(PHYSICAL_PERSON_ID)).thenReturn(physicalPersonDTO);
+
+        ResponseEntity<PhysicalPersonDTO> result = this.physicalPersonController.findPhysicalPersonById(PHYSICAL_PERSON_ID);
+
+        verify(this.physicalPersonServicePort).findPhysicalPersonById(PHYSICAL_PERSON_ID);
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertNotNull(result.getBody());
+        assertEquals(PhysicalPersonDTO.class, result.getBody().getClass());
     }
 
     private PhysicalPerson getPhysicalPerson() {

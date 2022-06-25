@@ -1,5 +1,6 @@
 package br.com.easypay.backend.infrastructure.adapters.repositories;
 
+import br.com.easypay.backend.domain.adapters.services.exceptions.ResourceNotFoundException;
 import br.com.easypay.backend.domain.classes.PhysicalPerson;
 import br.com.easypay.backend.domain.doors.repositories.PhysicalPersonRepositoryPort;
 import br.com.easypay.backend.infrastructure.adapters.entities.PhysicalPersonEntity;
@@ -26,5 +27,12 @@ public class PhysicalPersonRepository implements PhysicalPersonRepositoryPort {
     @Override
     public void deleteById(Long physicalPersonId) {
         this.physicalPersonJpaRepository.deleteById(physicalPersonId);
+    }
+
+    @Override
+    public PhysicalPerson findPhysicalPersonById(Long physicalPersonId) {
+        return this.physicalPersonJpaRepository.findById(physicalPersonId)
+            .map(PhysicalPerson::new)
+            .orElseThrow(() -> new ResourceNotFoundException(physicalPersonId));
     }
 }
