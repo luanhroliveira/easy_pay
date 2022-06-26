@@ -94,6 +94,19 @@ class PhysicalPersonServiceImplTest {
         assertEquals(DataIntegrityException.class, thrown.getClass());
     }
 
+    @Test
+    void should_return_a_physical_person() {
+        PhysicalPerson physicalPerson = this.getPhysicalPerson();
+
+        when(this.physicalPersonRepositoryPort.findPhysicalPersonById(PHYSICAL_PERSON_ID)).thenReturn(physicalPerson);
+
+        PhysicalPersonDTO result = this.physicalPersonService.findPhysicalPersonById(PHYSICAL_PERSON_ID);
+
+        verify(this.physicalPersonRepositoryPort).findPhysicalPersonById(PHYSICAL_PERSON_ID);
+        assertNotNull(result);
+        assertEquals(PhysicalPersonDTO.class, result.getClass());
+    }
+
     private PhysicalPerson getPhysicalPerson() {
         return new PhysicalPerson(
             PHYSICAL_PERSON_ID,

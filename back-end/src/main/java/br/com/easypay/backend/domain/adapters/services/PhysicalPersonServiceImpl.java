@@ -39,4 +39,10 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonServicePort {
             throw new DataIntegrityException(e.getMessage());
         }
     }
+
+    @Override
+    public PhysicalPersonDTO findPhysicalPersonById(Long physicalPersonId) {
+        PhysicalPerson physicalPerson = this.physicalPersonRepositoryPort.findPhysicalPersonById(physicalPersonId);
+        return new PhysicalPersonDTO(physicalPerson);
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.easypay.backend.infrastructure.adapters.repositories;
 
+import br.com.easypay.backend.domain.adapters.services.exceptions.ResourceNotFoundException;
 import br.com.easypay.backend.domain.classes.PhysicalPerson;
 import br.com.easypay.backend.domain.classes.enums.PersonType;
 import br.com.easypay.backend.infrastructure.adapters.entities.PhysicalPersonEntity;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -55,6 +57,35 @@ class PhysicalPersonRepositoryTest {
     void should_delete_a_physical_person() {
         this.physicalPersonRepository.deleteById(PHYSICAL_PERSONAL_ID);
         verify(this.physicalPersonJpaRepository).deleteById(PHYSICAL_PERSONAL_ID);
+    }
+
+    @Test
+    void should_return_a_physical_person() {
+        PhysicalPersonEntity physicalPersonEntity = new PhysicalPersonEntity(this.getPhysicalPerson());
+
+        when(this.physicalPersonJpaRepository.findById(PHYSICAL_PERSONAL_ID)).thenReturn(Optional.of(physicalPersonEntity));
+
+        PhysicalPerson result = this.physicalPersonRepository.findPhysicalPersonById(PHYSICAL_PERSONAL_ID);
+
+        verify(this.physicalPersonJpaRepository).findById(PHYSICAL_PERSONAL_ID);
+        assertNotNull(result);
+        assertEquals(PhysicalPerson.class, result.getClass());
+    }
+
+    @Test
+    void should_return_a_resource_not_found_exception_when_can_not_find_the_physical_person_by_id() {
+        ResourceNotFoundException thrown = null;
+
+        try {
+            this.physicalPersonRepository.findPhysicalPersonById(PHYSICAL_PERSONAL_ID);
+        } catch (ResourceNotFoundException e) {
+            thrown = e;
+        }
+
+        verify(this.physicalPersonJpaRepository).findById(PHYSICAL_PERSONAL_ID);
+        assertNotNull(thrown);
+        assertEquals(ResourceNotFoundException.class, thrown.getClass());
+        assertEquals("Resource not found. Id " + PHYSICAL_PERSONAL_ID, thrown.getMessage());
     }
 
     private PhysicalPerson getPhysicalPerson() {

@@ -5,6 +5,7 @@ import br.com.easypay.backend.domain.classes.dtos.PhysicalPersonNewDTO;
 import br.com.easypay.backend.domain.doors.interfaces.PhysicalPersonServicePort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +41,11 @@ public class PhysicalPersonController {
         this.physicalPersonServicePort.deleteAPhysicalPerson(physicalPersonId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{physicalPersonId}")
+    public ResponseEntity<PhysicalPersonDTO> findPhysicalPersonById(@PathVariable Long physicalPersonId) {
+        PhysicalPersonDTO physicalPersonDTO = this.physicalPersonServicePort.findPhysicalPersonById(physicalPersonId);
+        return ResponseEntity.ok().body(physicalPersonDTO);
     }
 }
